@@ -1,0 +1,126 @@
+{
+  "interactionModel": {
+    "languageModel": {
+      "invocationName": "focus mode",
+      "intents": [
+        {
+          "name": "AMAZON.CancelIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.HelpIntent",
+          "samples": [
+            "what can I say",
+            "what can focus mode do",
+            "how does this work"
+          ]
+        },
+        {
+          "name": "AMAZON.FallbackIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.PauseIntent",
+          "samples": [
+            "pause focus",
+            "pause focus mode",
+            "pause my session",
+            "pause the timer",
+            "pause my focus",
+            "pause the session"
+          ]
+        },
+        {
+          "name": "AMAZON.ResumeIntent",
+          "samples": [
+            "resume focus",
+            "resume focus mode",
+            "resume my session",
+            "continue my session",
+            "resume my focus",
+            "keep going"
+          ]
+        },
+        {
+          "name": "AMAZON.StopIntent",
+          "samples": [
+            "stop focus",
+            "stop focus mode",
+            "stop focusing",
+            "end focus",
+            "end my session",
+            "stop my session",
+            "end the session",
+            "end focus mode",
+            "quit focus mode"
+          ]
+        },
+        {
+          "name": "StartFocusIntent",
+          "samples": [
+            "start",
+            "start focusing",
+            "start a focus session",
+            "start focus",
+            "begin",
+            "begin focus",
+            "begin a focus session",
+            "start my session",
+            "start a session",
+            "let's start"
+          ]
+        },
+        {
+          "name": "FocusStatusIntent",
+          "samples": [
+            "how much time is left",
+            "how long is left",
+            "how much longer",
+            "what is my status",
+            "what round am I on",
+            "time remaining",
+            "time left",
+            "status",
+            "my status"
+          ]
+        },
+        {
+          "name": "SkipFocusIntent",
+          "samples": [
+            "skip focus",
+            "skip this focus",
+            "skip this round",
+            "end this round early",
+            "end this round",
+            "skip the focus session",
+            "skip this focus session"
+          ]
+        },
+        {
+          "name": "SkipBreakIntent",
+          "samples": [
+            "skip break",
+            "skip my break",
+            "end my break",
+            "skip the break",
+            "end the break",
+            "end this break"
+          ]
+        },
+        {
+          "name": "NextRoundIntent",
+          "samples": [
+            "next round",
+            "start next round",
+            "start the next round",
+            "continue",
+            "continue to next round",
+            "next focus round",
+            "begin the next round"
+          ]
+        }
+      ],
+      "types": []
+    }
+  }
+}

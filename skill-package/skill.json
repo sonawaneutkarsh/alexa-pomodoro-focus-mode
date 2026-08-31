@@ -1,0 +1,51 @@
+{
+  "manifest": {
+    "manifestVersion": "1.0",
+    "apis": {
+      "custom": {}
+    },
+    "permissions": [
+      {
+        "name": "alexa::alerts:timers:skill:readwrite"
+      }
+    ],
+    "publishingInformation": {
+      "distribution": {
+        "distributionCountries": [
+          "US"
+        ],
+        "isAvailableInternationally": false,
+        "distributionMode": "PUBLIC"
+      },
+      "locales": {
+        "en-US": {
+          "name": "Focus Mode",
+          "summary": "Pomodoro-style focus rounds with spoken checkpoints and break timers.",
+          "description": "Focus Mode runs numbered 30-minute focus rounds indefinitely. Alexa checks in halfway and five minutes before the end of each round, then the break (5 minutes after odd rounds, 10 after even) ends with a normal ringing timer. The next round never starts automatically.",
+          "examplePhrases": [
+            "Alexa, open Focus Mode",
+            "Alexa, ask Focus Mode to pause",
+            "Alexa, ask Focus Mode how much time is left"
+          ],
+          "keywords": [
+            "focus",
+            "pomodoro",
+            "timer",
+            "productivity"
+          ]
+        }
+      },
+      "category": "PRODUCTIVITY"
+    },
+    "privacyAndCompliance": {
+      "allowsPurchases": false,
+      "usesPersonalInfo": false,
+      "isChildDirected": false,
+      "isExportCompliant": true,
+      "containsAds": false,
+      "locales": {
+        "en-US": {}
+      }
+    }
+  }
+}

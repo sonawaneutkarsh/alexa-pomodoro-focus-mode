@@ -1,0 +1,21 @@
+# Dependencies
+node_modules/
+package-lock.json
+
+# Secrets / local config
+.env
+.env.*
+*.pem
+*.key
+*.p12
+
+# Logs / OS junk
+*.log
+npm-debug.log*
+.DS_Store
+
+# ASK CLI / editor artifacts
+.ask/
+ask-resources.json
+.vscode/
+.idea/
