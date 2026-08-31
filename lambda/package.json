@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "Focus Mode - a Pomodoro-style custom Alexa skill using the Alexa Timers API",
   "main": "index.js",
+  "scripts": {
+    "test": "node ../test/smoke-test.js"
+  },
   "dependencies": {
     "ask-sdk-core": "^2.14.0",
     "ask-sdk-dynamodb-persistence-adapter": "^2.14.0",

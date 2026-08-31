@@ -29,7 +29,10 @@ focus-mode/
     interactionModels/custom/en-US.json # interaction model (paste into Build tab)
   lambda/
     index.js                            # all skill code
-    package.json                        # dependencies
+    package.json                        # dependencies (npm test runs the suite)
+  test/
+    smoke-test.js                       # offline smoke tests (no Alexa calls)
+  LICENSE                               # MIT
 ```
 
 ## Quick start (Alexa-hosted)
@@ -83,3 +86,38 @@ stop" to end the whole session.
 If a session is older than 24 h (12 h for the waiting state) and Alexa
 reports none of its timers alive, state resets to idle. "Stop" always clears
 the session and restarts numbering at Round 1.
+
+## Roadmap — features I'm thinking of adding / working on
+
+The skill already works end-to-end as a timer; the items below would turn it
+into a full productivity product. The **top 4 priorities** add the most value
+without turning this into a giant project:
+
+1. **Daily stats** *(top priority)* — "You completed 6 rounds today, 3 hours focused."
+2. **Session goal** *(top priority)* — say "start 4 rounds" and it tracks progress toward that goal.
+3. **Long break every N rounds** *(top priority)* — e.g. every 4 rounds, a 15–20 minute long break.
+4. **Custom focus duration** *(top priority)* — "start a 45-minute focus round."
+
+Also on the list:
+
+- **Custom break length** — "give me a 7-minute break."
+- **Varied start phrases** — rotate the round-start message so it never sounds repetitive.
+- **End-of-round summary** — "Round 3 complete. You've focused for 90 minutes today."
+- **Streaks** — consecutive days with at least one completed focus round.
+- **Quick status** — "Alexa, ask Focus Mode how am I doing?"
+- **Session history** — "How many rounds did I do yesterday?"
+- **Named modes** — Deep Work, Study, Reading, Coding, each with its own timings.
+- **Goal by time** — "Focus until 10 PM" and calculate how many rounds fit.
+- **Automatic next-round mode** — a configurable option where the break ending flows straight into the next focus round.
+- **Gentle break-end option** — instead of a ringing timer, speak once: "Break is over. Ready for round 4?"
+- **Checkpoint toggles** — disable the halfway or five-minute warnings if you find them distracting.
+
+The target experience for a "study session" mode:
+
+> "Alexa, ask Focus Mode to start a study session."
+> → 30 focus → 5 break → 30 → 10 → 30 → 5 → 30 → 20-minute long break
+> → "Session complete. You finished 4 rounds and focused for 2 hours."
+
+## License
+
+MIT — see [LICENSE](LICENSE). Use it, remix it, ship your own version.
