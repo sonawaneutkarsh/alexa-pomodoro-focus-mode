@@ -18,6 +18,7 @@
 
 const Alexa = require('ask-sdk-core');
 const AWS = require('aws-sdk');
+const crypto = require('crypto');
 const {
   DynamoDbPersistenceAdapter,
 } = require('ask-sdk-dynamodb-persistence-adapter');
@@ -2868,6 +2869,17 @@ const LogRequestInterceptor = {
       system.user &&
       system.user.userId;
 
+    // Never log the complete user ID — log only a non-reversible
+    // SHA-256 hash fragment so logs contain no identifiers.
+    const userTag =
+      userId
+        ? crypto
+            .createHash('sha256')
+            .update(userId)
+            .digest('hex')
+            .slice(0, 8)
+        : undefined;
+
     console.log(
       JSON.stringify({
         event:
@@ -2881,11 +2893,7 @@ const LogRequestInterceptor = {
             ? request.intent.name
             : undefined,
 
-        // Only a suffix. Never log the complete user ID.
-        userIdHash:
-          userId
-            ? userId.slice(-6)
-            : undefined,
+        userTag, // anonymous 8-char hash fragment
 
         testMode:
           TEST_MODE,
