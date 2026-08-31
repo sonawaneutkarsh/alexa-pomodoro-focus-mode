@@ -15,9 +15,9 @@ const src = fs.readFileSync(path.join(__dirname, '..', 'lambda', 'index.js'), 'u
 // Strip requires + the skill-assembly block so we can eval the pure logic.
 const cutAt = src.indexOf('const persistenceAdapter');
 let code = src.slice(0, cutAt);
-code = code.replace(/^const Alexa = require.*$/m, 'const Alexa = {};');
-code = code.replace(/^const AWS = require.*$/m, 'const AWS = {};');
-code = code.replace(/^const \{ DynamoDbPersistenceAdapter \} = require.*$/m, 'const DynamoDbPersistenceAdapter = class {};');
+code = code.replace(/const Alexa = require\('ask-sdk-core'\);/g, 'const Alexa = {};');
+code = code.replace(/const AWS = require\('aws-sdk'\);/g, 'const AWS = {};');
+code = code.replace(/const \{[\s\S]*?\} = require\('ask-sdk-dynamodb-persistence-adapter'\);/g, 'const DynamoDbPersistenceAdapter = class {};');
 code += `;Object.assign(globalThis, { isoDuration, parseIsoDurationMs, parseIsoTimestampMs, speakDuration, speakDurationAdj, speakDurationPrecise, speakDurationApprox, getBreakMs, buildAnnounceTimer, buildRingingTimer, freshState, reconcileState, createRoundTimers, createBreakTimer, DUR, TEST_MODE });`;
 eval(code);
 
@@ -152,8 +152,8 @@ function makeClient(failOnCall) {
     assert(res.plannedTimes.focusEnd > res.plannedTimes.fiveLeft);
     assert(res.plannedTimes.fiveLeft > res.plannedTimes.halfway);
   });
-  a('round 3 announcements carry 5 minute break', () => {
-    assert(res.focusEndText.includes('5 minute break'), res.focusEndText);
+  a('round 3 has a 5 minute break (odd round)', () => {
+    assert.strictEqual(res.breakMs, 5 * 60 * 1000);
   });
 
   const client2 = makeClient(3);
