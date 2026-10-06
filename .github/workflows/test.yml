@@ -1,0 +1,44 @@
+name: test
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    name: smoke tests (node ${{ matrix.node }})
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    strategy:
+      fail-fast: false
+      matrix:
+        # 16 = the Alexa-hosted Node.js runtime; 24 = current LTS
+        node: ["16", "24"]
+    defaults:
+      run:
+        working-directory: lambda
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: ${{ matrix.node }}
+          cache: npm
+          cache-dependency-path: lambda/package-lock.json
+
+      - run: npm ci
+      - run: npm test
+
+      - name: load the skill module
+        env:
+          # a table name disables createTable, so loading makes no AWS call
+          DYNAMODB_PERSISTENCE_TABLE_NAME: ci-load-check
+        run: node -e "const m = require('./index.js'); if (typeof m.handler !== 'function') process.exit(1)"
