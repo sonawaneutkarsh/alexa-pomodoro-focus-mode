@@ -1,5 +1,7 @@
 # Focus Mode — custom Alexa skill (Echo Dot 5th Gen, en-US)
 
+[![test](https://github.com/sonawaneutkarsh/alexa-pomodoro-focus-mode/actions/workflows/test.yml/badge.svg)](https://github.com/sonawaneutkarsh/alexa-pomodoro-focus-mode/actions/workflows/test.yml)
+
 A Pomodoro-style personal Alexa skill: indefinite numbered 30-minute focus
 rounds, spoken checkpoints at +15 and +25 minutes, an ANNOUNCEMENT (not a
 ringing alarm) when the round ends, then a 5-minute (odd rounds) or 10-minute
@@ -23,19 +25,43 @@ runs a reconciliation step against the Timers API before answering.
 ## Files
 
 ```
-focus-mode/
+alexa-pomodoro-focus-mode/
   skill-package/
     skill.json                          # reference manifest (console manages this)
     interactionModels/custom/en-US.json # interaction model (paste into Build tab)
   lambda/
     index.js                            # all skill code
-    package.json                        # dependencies (npm test runs the suite)
+    package.json                        # dependencies; `npm test` runs the suite
+    package-lock.json                   # locked dependency versions
   test/
     smoke-test.js                       # offline smoke tests (no Alexa calls)
+  .github/workflows/test.yml            # CI: npm ci + tests + load check
   LICENSE                               # MIT
 ```
 
+## Tests
+
+The offline smoke tests (no Alexa or AWS calls) live in `test/`, but the
+`package.json` that runs them is in `lambda/`, so run them from there:
+
+```bash
+cd lambda
+npm ci
+npm test
+```
+
+They cover duration formatting/parsing, break lengths, Timers API request
+shapes, state reconciliation, round-timer creation with rollback on partial
+failure, and a guard that fails if `TEST_MODE` is left on. CI runs them on
+Node.js 16 (the Alexa-hosted runtime) and Node.js 24.
+
 ## Quick start (Alexa-hosted)
+
+Alexa-hosted skills run on Node.js 16.x, which Amazon manages; `engines` in
+`lambda/package.json` matches that. The DynamoDB client is built with `aws-sdk`
+v2, the SDK that `ask-sdk-dynamodb-persistence-adapter` 2.x depends on; it is
+declared explicitly in `package.json` instead of relying on a hoisted
+transitive install.
 
 1. https://developer.amazon.com/alexa/console/ask → **Create Skill**
 2. Name: `Focus Mode`; **Custom** model; **Alexa-Hosted (Node.js)** → Create.
@@ -52,7 +78,7 @@ focus-mode/
 ## TEST MODE (development only)
 
 In `lambda/index.js`, set `const TEST_MODE = false;` to `true` and Deploy.
-Durations become: focus 30 s, halfway +15 s, warning +25 s, break 5 s / 10 s.
+Durations become: focus 30 s, halfway +15 s, warning +20 s, break 5 s / 10 s.
 **Always set it back to `false` and redeploy for real use** — production
 defaults are 30/15/25/5/10 minutes.
 

@@ -1,7 +1,7 @@
 'use strict';
 /**
  * Smoke tests for Focus Mode core logic (no Alexa service calls, no network).
- * Run with: npm test  (from the repo root or the lambda/ folder)
+ * Run with: cd lambda && npm test   (or: node test/smoke-test.js from the repo root)
  *
  * The tests eval the pure helper functions out of lambda/index.js by stripping
  * the requires and the skill-assembly block, then exercise them directly.
