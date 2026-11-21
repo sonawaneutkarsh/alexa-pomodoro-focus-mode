@@ -63,6 +63,8 @@ v2, the SDK that `ask-sdk-dynamodb-persistence-adapter` 2.x depends on; it is
 declared explicitly in `package.json` instead of relying on a hoisted
 transitive install.
 
+Note: `aws-sdk` v2 is pinned intentionally — the Alexa-hosted Node.js 16 runtime requires it, and `ask-sdk-dynamodb-persistence-adapter` 2.x depends on v2. AWS SDK for JavaScript v2 reached end of support in September 2025; staying on v2 here is a deliberate runtime constraint, not neglect.
+
 1. https://developer.amazon.com/alexa/console/ask → **Create Skill**
 2. Name: `Focus Mode`; **Custom** model; **Alexa-Hosted (Node.js)** → Create.
 3. Build tab → **Permissions** (lower left) → turn ON **Timers**.
